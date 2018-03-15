@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+  <title>Employee Manager</title>
+</head>
+
+
+<body>
+  <div id="app">
+    <nav>
+      <ul>
+        <li class="header">Employee Manager 2.0</li>
+        <span id="update" id="mybadge" class="badge badge-info">Now with Node!</span>
+        <li class="rightlink" v-on:click="setAbout()"><a href="#">About</a></li>
+      </ul>
+    </nav>
+    <div class="wrapper" v-show="about === false">
+      <div class="details">
+        <h2>{{header}}</h2>
+        <form>
+        <div v-show="editing === true">
+        <label>Name:</label>
+        <input type="text" v-show="editing === true" v-model="name"></input> <br>
+        <label>Email:</label>
+        <input type="text" v-show="editing === true" v-model="email"></input> <br>
+        <label>Job:</label>
+        <input type="text" v-show="editing === true" v-model="job"></input> <br>
+        <label>Salary:</label>
+        <input type="text" v-show="editing === true" v-model="salary"></input> <br>
+        <label>Notes:</label>
+        <textarea v-show="editing === true" v-model="notes"></textarea> <br>
+      </form>
+      </div>
+      <div class="detailView" v-show="editing === false">
+        <p><b>Name:</b> {{name}}</p>
+        <p><b>Email:</b><a v-bind:href="'mailto:' + email"> {{email}}</a></p>
+        <p><b>Job:</b> {{job}}</p>
+        <p><b>Salary:</b> {{salary}}</p>
+        <p><b>Notes:</b> {{notes}}</p>
+      </div>
+
+      </div>
+
+      <div class="sidebar">
+        <h2>Employees</h2>
+          <div v-for="item in employees">
+            <p class="sidebarname" v-on:click="select(item.name)"> {{ item.name }}</p>
+            <p class="subtext">{{ item.job }}</p>
+          </div>
+      </div>
+      <div class="bottom">
+      <p class="bottombar" v-on:click="newEmployee()">New Employee</p>
+      </div>
+      <div class="bottomdetails">
+      <p class="bottombar" v-on:click="save()" v-show="adding === true" style=" flex: 1;">Add</p>
+      <p class="bottombar" v-on:click="edit()" v-show="adding === false" style=" flex: 1;">{{buttonTitle}}</p>
+      <p class="bottombar" v-on:click="deletePerson()" v-show="adding === false" style=" flex: 1;">Lay Off</p>
+      <p class="bottombar" v-on:click="deletePerson()" v-show="adding === false" style=" flex: 1;">Fire</p>
+      </div>
+    </div>
+    <div v-show="about === true" class="about">
+      <h2>Welcome!</h2>
+      <p>Employee Manager 2.0 is the best Employee Management Software available on the market today. And,
+        the best part is, it's free! Through the magic of Vue and Node, you can easily add all your employees to
+        this highly secure database!</p>
+        <br>
+        <h2>New in Version 2.0:</h2>
+        <div class="features">
+          <p>Fire employees!</p>
+          <p>Lay off employees!</p>
+          <p>The navigation bar is blue!</p>
+          <p>This about page doesn't show when you first get on the page!</p>
+          <p>Improved interface now shows job titles under employee names!</p>
+          <p>Improved interface now sorts employees by name!</p>
+          <p>Refreshing the page doesn't delete all your data!</p>
+          <p>There is a fun badge by the logo that says "Now With Node!"!</p>
+          <p>The Add Employees button stays in a constant location and is never hidden!</p>
+          <p>The header stops being sticky on mobile devices so you can actually use the app!</p>
+          <p>There is a list of new features in version 2.0!</p>
+        </div>
+          <br>
+          <button v-on:click="leaveAbout()">Back To Fun!</button>
+
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="script.js"></script>
+</body>
+<footer>
+  <p>Copyright yesterday. Check out my <a href="https://github.com/machupicchu2014/employees">github.</a></p>
+</footer>
+</html>
